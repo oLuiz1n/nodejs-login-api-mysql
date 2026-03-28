@@ -73,7 +73,7 @@ app.get('/usuarios', async (req, res) => {
 app.get('/usuarios/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const[usuario] = await pool.query('SELECT * FROM usuarios WHERE id = ?', [id]);
+        const[usuario] = await pool.query('SELECT id, email, nome FROM usuarios WHERE id = ?', [id]);
 
         if (usuario.length === 0) { 
             return res.json({ mensagem: 'Usuário não encontrado' });
@@ -128,7 +128,7 @@ app.delete('/usuarios/:id', async (req, res) => {
 
 app.listen(PORT, () => {
     try {
-        console.log(`O servidor esta conectado na porta ${PORT}`);
+        console.log(`O servidor esta conectado`);
     } catch (error) {
         console.log('Não foi possivel conectar', error);
     }
