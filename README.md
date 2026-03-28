@@ -60,7 +60,7 @@ API REST desenvolvida para gerenciamento de usuários, com funcionalidades compl
 1. Clone o repositório:
 
 ```bash
-git clone https://github.com/seu-usuario/seu-repo.git
+git clone https://github.com/oLuiz1n/nodejs-login-api-mysql
 ```
 
 2. Instale as dependências:
