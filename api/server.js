@@ -113,15 +113,22 @@ app.put('/usuarios/:id', async (req, res) => {
 
 app.delete('/usuarios/:id', async (req, res) => {
     try {
-        const { nome } = req.params;
-        const { id } = req.params;
-        const[resultado] = await pool.query('DELETE FROM usuarios WHERE id = ?', [id]);
 
-        if (resultado.affectedRows === 0) {
-            return res.status(404).json({
-                mensagem: 'Usuario não encontrado'
-            });
-        };
+        const { senha } = req.body;
+        const { id } = req.params;
+        const [usuario] = await pool.query('SELECT senha FROM usuarios WHERE id = ?', [id]);
+
+        if(usuario.length === 0){
+            return res.status(404).json({ mensagem: 'Usuario não encontrado'});
+        }
+
+        const user = usuario[0];
+
+        if(senha !== user.senha){
+            return res.status(401).json({ mensagem: 'Senha incorreta'});
+        }
+
+        const[resultado] = await pool.query('DELETE FROM usuarios WHERE id = ? LIMIT 1', [id]);
 
         res.json({
             mensagem: 'Usuario excluido com sucesso',
