@@ -1,9 +1,11 @@
 import express from "express";
 import pool from "./database.js";
+import dotenv from "dotenv";
 
+dotenv.config();
 const app = express();
 app.use(express.json());
-const PORT = 1010;
+const PORT = process.env.PORT;
 
 const connectDB = async () => {
     try {
@@ -56,7 +58,7 @@ app.post('/login', async (req, res) => {
 
 app.get('/usuarios', async (req, res) => {
     try {
-        const[usuario] = await pool.query('SELECT * FROM usuarios');
+        const[usuario] = await pool.query('SELECT id, email, nome FROM usuarios');
 
         if(usuario.length === 0){
             return res.json({ mensagem: 'Usuario não encontrado' })
