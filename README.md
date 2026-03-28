@@ -109,6 +109,5 @@ Este projeto foi criado para prática de desenvolvimento backend, integração c
 * Implementar criptografia de senha (bcrypt)
 * Adicionar autenticação com JWT
 * Criar front-end consumindo a API
-* Deploy da aplicação
 
 ---
