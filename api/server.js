@@ -1,11 +1,13 @@
 import express from "express";
 import pool from "./database.js";
 import dotenv from "dotenv";
+import bcrypt from "bcrypt";
 
 dotenv.config();
 const app = express();
 app.use(express.json());
 const PORT = process.env.PORT;
+const saltRounds = Number(process.env.SALT);
 
 const connectDB = async () => {
     try {
@@ -23,7 +25,8 @@ app.post('/usuarios', async (req, res) => {
     try {
 
         const { nome, email, senha } = req.body;
-        const[resultado] = await pool.query('INSERT INTO usuarios (nome, email, senha) values (?, ?, ?)', [nome, email, senha]);
+        const senhaHash = await bcrypt.hash(senha, saltRounds);
+        const[resultado] = await pool.query('INSERT INTO usuarios (nome, email, senha) values (?, ?, ?)', [nome, email, senhaHash]);
 
         res.json({
             mensagem: 'Usuario criado com sucesso',
@@ -40,14 +43,16 @@ app.post('/login', async (req, res) => {
         const[usuario] = await pool.query('SELECT * FROM usuarios WHERE email = ?', [email]);
 
         if(usuario.length === 0){
-            return res.status(404).json({mensagem: 'Usuario não encontrado'})
+            return res.status(401).json({mensagem: 'Usuario não encontrado'})
         }
 
         const user = usuario[0];
 
-        if (senha !== user.senha) {
-            return res.status(404).json({ mensagem: 'Senha incorreta' });
-        }
+        const senhaCorreta = await bcrypt.compare(senha, user.senha);
+
+        if(!senhaCorreta) {
+            return res.status(401).json({ mensagem: 'Senha incorreta' });
+        };
         
         res.json({mensagem: "Usuario logado com sucesso"});
 
@@ -61,7 +66,7 @@ app.get('/usuarios', async (req, res) => {
         const[usuario] = await pool.query('SELECT id, email, nome FROM usuarios');
 
         if(usuario.length === 0){
-            return res.status(404).json({ mensagem: 'Usuario não encontrado' })
+            return res.status(401).json({ mensagem: 'Usuario não encontrado' })
         }
         
         res.json(usuario);
@@ -76,7 +81,7 @@ app.get('/usuarios/:id', async (req, res) => {
         const[usuario] = await pool.query('SELECT id, email, nome FROM usuarios WHERE id = ?', [id]);
 
         if (usuario.length === 0) { 
-            return res.status(404).json({ mensagem: 'Usuário não encontrado' });
+            return res.status(401).json({ mensagem: 'Usuário não encontrado' });
         }
 
         res.json(usuario[0]);
@@ -88,20 +93,23 @@ app.get('/usuarios/:id', async (req, res) => {
 app.put('/usuarios/:id', async (req, res) => {
     try {
         const { senhaAntiga, senhaNova }  = req.body;
+        const senhaNovaHash = await bcrypt.hash(senhaNova, saltRounds);
         const { id }  = req.params;
         const[usuario] = await pool.query('SELECT senha FROM usuarios WHERE id = ?', [id]);
         
         if(usuario.length === 0) {
-            return res.status(404).json({ mensagem: 'Usuario não encontrado'});
+            return res.status(401).json({ mensagem: 'Usuario não encontrado'});
         };
         
         const user = usuario[0];
 
-        if(senhaAntiga !== user.senha){
-            return res.status(401).json({ mensagem: 'Senha antiga incorreta' })
+        const senhaCorreta = await bcrypt.compare(senhaAntiga, user.senha);
+
+        if(!senhaCorreta) {
+            return res.status(401).json({ mensagem: 'Senha incorreta'});
         };
 
-        const [resultado] = await pool.query('UPDATE usuarios SET senha = ? WHERE id = ? LIMIT 1', [senhaNova, id]);
+        const [resultado] = await pool.query('UPDATE usuarios SET senha = ? WHERE id = ? LIMIT 1', [senhaNovaHash, id]);
 
         res.json({
             mensagem: 'Senha alterada com sucesso'
@@ -124,9 +132,11 @@ app.delete('/usuarios/:id', async (req, res) => {
 
         const user = usuario[0];
 
-        if(senha !== user.senha){
-            return res.status(401).json({ mensagem: 'Senha incorreta'});
-        }
+        const senhaCorreta = await bcrypt.compare(senha, user.senha);
+
+        if(!senhaCorreta){
+            return res.status(401).json({ mensagem: 'Senha Incorreta' });
+        };
 
         const[resultado] = await pool.query('DELETE FROM usuarios WHERE id = ? LIMIT 1', [id]);
 
