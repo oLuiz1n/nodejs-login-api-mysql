@@ -2,7 +2,9 @@ import express from "express";
 import pool from "./database.js";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt";
+import cors from "cors";
 
+app.use(cors());
 dotenv.config();
 const app = express();
 app.use(express.json());
