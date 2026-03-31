@@ -92,9 +92,7 @@ node server.js
 * As senhas ainda não estão criptografadas
 * Futuramente será implementado:
 
-  * Criptografia com bcrypt
-  * Autenticação com JWT
-  * Integração com front-end
+  * Estilização
 
 ---
 
@@ -106,8 +104,6 @@ Este projeto foi criado para prática de desenvolvimento backend, integração c
 
 ## 🚀 Próximos passos
 
-* Implementar criptografia de senha (bcrypt)
-* Adicionar autenticação com JWT
-* Criar front-end consumindo a API
+* Estilização
 
 ---
