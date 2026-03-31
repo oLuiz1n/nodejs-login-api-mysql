@@ -17,6 +17,9 @@ API REST desenvolvida para gerenciamento de usuários, com funcionalidades compl
 * Express
 * MySQL
 * dotenv
+* React.js
+* JWT
+* bcrypt
 
 ## 📡 Rotas da API
 
