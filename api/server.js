@@ -3,11 +3,13 @@ import pool from "./database.js";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt";
 import cors from "cors";
+import jwt from "jsonwebtoken";
 
-app.use(cors());
+
 dotenv.config();
 const app = express();
 app.use(express.json());
+app.use(cors());
 const PORT = process.env.PORT;
 const saltRounds = Number(process.env.SALT);
 
@@ -21,6 +23,28 @@ const connectDB = async () => {
 }
 
 connectDB();
+
+function autenticarToken(req, res, next) {
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader) {
+        return res.status(401).json({ mensagem: "Token não fornecido" });
+    }
+
+    const token = authHeader.split(" ")[1];
+
+    if (!token) {
+        return res.status(401).json({ mensagem: "Token inválido" });
+    }
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        req.userId = decoded.id;
+        next();
+    } catch (error) {
+        return res.status(401).json({ mensagem: "Token expirado ou inválido" });
+    }
+}
 
 
 app.post('/usuarios', async (req, res) => {
@@ -55,8 +79,14 @@ app.post('/login', async (req, res) => {
         if(!senhaCorreta) {
             return res.status(401).json({ mensagem: 'Senha incorreta' });
         };
+
+        const token = jwt.sign(
+            { id: user.id },
+            process.env.JWT_SECRET,
+            { expiresIn: '1h'}
+        );
         
-        res.json({mensagem: "Usuario logado com sucesso"});
+        res.status(200).json({ token });
 
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -77,10 +107,9 @@ app.get('/usuarios', async (req, res) => {
     }
 });
 
-app.get('/usuarios/:id', async (req, res) => {
+app.get('/usuarios/me', autenticarToken, async (req, res) => {
     try {
-        const { id } = req.params;
-        const[usuario] = await pool.query('SELECT id, email, nome FROM usuarios WHERE id = ?', [id]);
+        const[usuario] = await pool.query('SELECT id, email, nome FROM usuarios WHERE id = ?', [req.userId]);
 
         if (usuario.length === 0) { 
             return res.status(401).json({ mensagem: 'Usuário não encontrado' });
@@ -92,12 +121,10 @@ app.get('/usuarios/:id', async (req, res) => {
     }
 });
 
-app.put('/usuarios/:id', async (req, res) => {
+app.put('/usuarios/me/senha', autenticarToken, async (req, res) => {
     try {
         const { senhaAntiga, senhaNova }  = req.body;
-        const senhaNovaHash = await bcrypt.hash(senhaNova, saltRounds);
-        const { id }  = req.params;
-        const[usuario] = await pool.query('SELECT senha FROM usuarios WHERE id = ?', [id]);
+        const[usuario] = await pool.query('SELECT senha FROM usuarios WHERE id = ?', [req.userId]);
         
         if(usuario.length === 0) {
             return res.status(401).json({ mensagem: 'Usuario não encontrado'});
@@ -110,8 +137,10 @@ app.put('/usuarios/:id', async (req, res) => {
         if(!senhaCorreta) {
             return res.status(401).json({ mensagem: 'Senha incorreta'});
         };
+        
+        const senhaNovaHash = await bcrypt.hash(senhaNova, saltRounds);
 
-        const [resultado] = await pool.query('UPDATE usuarios SET senha = ? WHERE id = ? LIMIT 1', [senhaNovaHash, id]);
+        const [resultado] = await pool.query('UPDATE usuarios SET senha = ? WHERE id = ? LIMIT 1', [senhaNovaHash, req.userId]);
 
         res.json({
             mensagem: 'Senha alterada com sucesso'
@@ -121,12 +150,11 @@ app.put('/usuarios/:id', async (req, res) => {
     }
 });
 
-app.delete('/usuarios/:id', async (req, res) => {
+app.delete('/usuarios/me', autenticarToken, async (req, res) => {
     try {
 
         const { senha } = req.body;
-        const { id } = req.params;
-        const [usuario] = await pool.query('SELECT senha FROM usuarios WHERE id = ?', [id]);
+        const [usuario] = await pool.query('SELECT senha FROM usuarios WHERE id = ?', [req.userId]);
 
         if(usuario.length === 0){
             return res.status(404).json({ mensagem: 'Usuario não encontrado'});
@@ -140,7 +168,7 @@ app.delete('/usuarios/:id', async (req, res) => {
             return res.status(401).json({ mensagem: 'Senha Incorreta' });
         };
 
-        const[resultado] = await pool.query('DELETE FROM usuarios WHERE id = ? LIMIT 1', [id]);
+        const[resultado] = await pool.query('DELETE FROM usuarios WHERE id = ? LIMIT 1', [req.userId]);
 
         res.json({
             mensagem: 'Usuario excluido com sucesso',
