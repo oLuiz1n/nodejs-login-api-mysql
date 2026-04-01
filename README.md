@@ -87,12 +87,18 @@ DB_NAME=usuarios
 node server.js
 ```
 
+5. Inicie o Front:
+
+```bash
+npm run dev
+```
+
 ---
 
 ## ⚠️ Observações
 
 * Este projeto foi desenvolvido para fins de estudo
-* As senhas ainda não estão criptografadas
+* As senhas já estão criptografadas
 * Futuramente será implementado:
 
   * --PROJETO COMPLETADO
@@ -103,4 +109,26 @@ node server.js
 
 Este projeto foi criado para prática de desenvolvimento backend, integração com banco de dados e construção de APIs REST.
 
+---
+
+## 📷Previews
+
+  # 🖥️Login:
+    ![Tela de login](./assets/Tela_Login.jpg)
+---
+
+  # 🖥️Cadastro:
+    ![Tela de login](./assets/Tela_Cadastro.jpg)
+---
+
+  # 🖥️Perfil:
+    ![Tela de login](./assets/Tela_Perfil.jpg)
+---
+
+  # 🖥️Perfil + Trocar Senha:
+    ![Tela de login](./assets/Tela_Perfil_+_Trocar_Senha.jpg)
+---
+
+  # 🖥️Perfil + Excluir Perfil:
+    ![Tela de login](./assets/Tela_Perfil_+_Excluir_Perfil.jpg)
 ---
