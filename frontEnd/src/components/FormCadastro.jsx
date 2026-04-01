@@ -10,13 +10,19 @@ function FormCadastro() {
     async function handleCadastro(e) {
         e.preventDefault();
         setErro("");
+
+        if (!nome.trim() || !email.trim() || !senha.trim()) {
+        setErro("Preencha todos os campos");
+        return;
+        };
+
         try {
             const response =  await fetch(`${import.meta.env.VITE_API_URI}/usuarios`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ nome, email, senha })
+                body: JSON.stringify({ nome: nome.trim(), email: email.trim(), senha: senha.trim() })
             });
 
             const data = await response.json();

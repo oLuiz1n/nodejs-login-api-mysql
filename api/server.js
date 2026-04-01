@@ -51,14 +51,39 @@ app.post('/usuarios', async (req, res) => {
     try {
 
         const { nome, email, senha } = req.body;
-        const senhaHash = await bcrypt.hash(senha, saltRounds);
-        const[resultado] = await pool.query('INSERT INTO usuarios (nome, email, senha) values (?, ?, ?)', [nome, email, senhaHash]);
+
+        if (!nome || !email || !senha) {
+            return res.status(400).json({ mensagem: 'Todos os campos são obrigatórios' });
+        };
+
+        const nomeLimpo = nome.trim();
+        const emailLimpo = email.trim();
+        const senhaLimpa = senha.trim();
+
+        if (!nomeLimpo || !emailLimpo || !senhaLimpa) {
+            return res.status(400).json({ mensagem: 'Campos não podem ser vazios' });
+        };
+
+        const [usuarioExistente] = await pool.query(
+            'SELECT id FROM usuarios WHERE email = ?',
+            [emailLimpo]
+        );
+
+        if (usuarioExistente.length > 0) {
+            return res.status(400).json({ mensagem: 'Email já cadastrado' });
+        }
+
+        const senhaHash = await bcrypt.hash(senhaLimpa, saltRounds);
+        const[resultado] = await pool.query('INSERT INTO usuarios (nome, email, senha) values (?, ?, ?)', [nomeLimpo, emailLimpo, senhaHash]);
 
         res.json({
             mensagem: 'Usuario criado com sucesso',
             id: resultado.insertId
         });
     } catch (error) {
+        if (error.code === 'ER_DUP_ENTRY') {
+        return res.status(400).json({ mensagem: 'Email já cadastrado' });
+    }
         res.status(500).json({ error: error.message });
     }
 });
