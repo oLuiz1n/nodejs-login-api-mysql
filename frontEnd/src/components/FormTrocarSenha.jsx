@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../style.css";
 
 function FormTrocarSenha() {
     const [mostrarConfirmacao, setMostrarConfirmacao] = useState(false);
@@ -43,32 +44,32 @@ function FormTrocarSenha() {
     }
 
     return (
-        <div>
+        <div className="btnsAndInputs">
             {!mostrarConfirmacao ? (
-                <button type="button" onClick={() => setMostrarConfirmacao(true)}>Trocar senha</button>
+                <button className="btnTrocarSenha" type="button" onClick={() => setMostrarConfirmacao(true)}>Trocar senha</button>
             ) : (
-            <form onSubmit={handleTrocarSenha}>
-                <input
-                    type="password"
-                    placeholder="Digite sua senha antiga"
-                    value={senhaAntiga}
-                    onChange={(e) => setSenhaAntiga(e.target.value)}
-                />
-
-                <input
-                    type="password"
-                    placeholder="Digite sua nova senha"
-                    value={senhaNova}
-                    onChange={(e) => setSenhaNova(e.target.value)}
-                />
-
-                <button type="submit">Confirmar troca</button>
-                <button type="button" onClick={() => {setMostrarConfirmacao(false); setSenhaAntiga(""); setSenhaNova(""); setErro("");}}>Cancelar</button>
-
-                {mensagem && <p>{mensagem}</p>}
-                {erro && <p>{erro}</p>}
-                </form>
-            )}
+                <form onSubmit={handleTrocarSenha}>
+                    <input
+                        type="password"
+                        placeholder="Digite sua senha antiga"
+                        value={senhaAntiga}
+                        onChange={(e) => setSenhaAntiga(e.target.value)}
+                    />
+    
+                    <input
+                        type="password"
+                        placeholder="Digite sua nova senha"
+                        value={senhaNova}
+                        onChange={(e) => setSenhaNova(e.target.value)}
+                    />
+    
+                    <button button className="btnConfirmarTroca" type="submit">Confirmar troca</button>
+                    <button button className="btnCancelar" type="button" onClick={() => {setMostrarConfirmacao(false); setSenhaAntiga(""); setSenhaNova(""); setErro("");}}>Cancelar</button>
+    
+                    {mensagem && <p>{mensagem}</p>}
+                    {erro && <p>{erro}</p>}
+                    </form>
+                )}
         </div>
         
     );

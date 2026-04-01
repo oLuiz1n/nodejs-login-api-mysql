@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../style.css";
 
 function FormLogin()  {
     const navigate = useNavigate();
@@ -39,13 +40,16 @@ function FormLogin()  {
     }
 
     return (
+        <div className="formLogin" >
         <form onSubmit={handleLogin}>
             <input type="email" placeholder="Digite seu email" value={email} onChange={(e)  => setEmail(e.target.value)} />
             <input type="password" placeholder="Digite sua senha" value={senha} onChange={(e) => setSenha(e.target.value)} />
-            <button type="submit">Entrar</button>
-            <button type="button" onClick={() => navigate("/cadastro")}>Cadastrar</button>
+            <button className="btnEntrar" type="submit">Entrar</button>
+            <h2>Cadastre-se aqui</h2>
+            <button className="btnCadastro" type="button" onClick={() => navigate("/cadastro")}>Cadastrar</button>
             {erro && <p>{erro}</p>}
         </form>
+        </div>
     )
 
 }

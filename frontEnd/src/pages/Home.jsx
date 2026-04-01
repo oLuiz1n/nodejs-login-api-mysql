@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Perfil from "../components/Perfil.jsx";
 
+
 function Home() {
     const navigate = useNavigate();
     const [usuario, setUsuario] = useState(null);

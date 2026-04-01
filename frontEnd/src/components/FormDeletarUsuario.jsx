@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../style.css";
 
 function FormDeletarUsuario() {
     const [mostrarConfirmacao, setMostrarConfirmacao] = useState(false);
@@ -37,15 +38,15 @@ function FormDeletarUsuario() {
     }
 
     return (
-        <div>
+        <div className="btnsAndInputs">
             {!mostrarConfirmacao ? (
-                <button type="button" onClick={() => setMostrarConfirmacao(true)}>Deletar usuario</button>
+                <button button className="btnDeletar" type="button" onClick={() => setMostrarConfirmacao(true)}>Deletar usuario</button>
             ) : (
                 <form onSubmit={handleDeletar}>
                     <input  type="password" placeholder="Confirme sua senha" value={senha} onChange={(e) => setSenha(e.target.value)}/>
 
-                    <button type="submit">Confirmar exclusão</button>
-                    <button type="button" onClick={() => {setMostrarConfirmacao(false); setSenha(""); setErro("");}}>Cancelar</button>
+                    <button button className="btnConfirmarDelete" type="submit">Confirmar exclusão</button>
+                    <button button className="btnCancelar" type="button" onClick={() => {setMostrarConfirmacao(false); setSenha(""); setErro("");}}>Cancelar</button>
 
                     {erro && <p>{erro}</p>}
                 </form>

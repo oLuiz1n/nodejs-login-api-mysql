@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../style.css";
 
 function FormCadastro() {
     const [email, setEmail] = useState("");
@@ -32,14 +33,15 @@ function FormCadastro() {
     };
 
     return (
+        <div className="btnAndInputs">
         <form onSubmit={handleCadastro}>
             <input type="text" placeholder="Digite seu nome completo" value={nome} onChange={(e) => setNome(e.target.value)}/>
             <input type="email" placeholder="Digite seu email" value={email} onChange={(e) => setEmail(e.target.value)}/>
             <input type="password" placeholder="Digite a senha" value={senha} onChange={(e) => setSenha(e.target.value)}/>
-            <button type="submit">Cadastrar</button>
-
+            <button className="btnCadastrar" type="submit">Cadastrar</button>
             {erro && <p>{erro}</p>}
         </form>
+        </div>
     );
 }
 

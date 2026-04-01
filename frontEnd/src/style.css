@@ -1,0 +1,227 @@
+h1 {
+    text-align: center;
+    font-family: "Brush Script MT", cursive;
+}
+
+h2 {
+    text-align: center;
+    font-family: "Brush Script MT", cursive;
+    margin: 20px 0 10px;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #e9e9e9, #ffffff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+}
+
+.formLogin {
+    background-color: transparent;
+    width: 400px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    box-shadow: 1px 2px 6px 1px rgba(0, 0, 0, 0.5) inset;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.formLogin form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+input {
+    width: 200px;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    box-shadow: 1px 2px 6px 1px rgba(0, 0, 0, 0.5) inset;
+    text-align: center;
+    font-family: "Brush Script MT", cursive;
+    background-color: transparent;
+    box-sizing: border-box;
+}
+
+.btnEntrar {
+    margin-top: 20px;
+}
+
+.btnCadastro {
+    background-color: rgb(231, 136, 11);
+}
+
+button {
+    width: 150px;
+    padding: 10px;
+    border: none;
+    background: #46c527;
+    color: rgb(250, 250, 250);
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 8px 0;
+    font-family: "Brush Script MT", cursive;
+}
+
+.btnEntrar:hover {
+    background: rgb(131, 248, 120);
+    transition: 0.2s;
+}
+
+.btnCadastro:hover {
+    background: #ffd6a6;
+    transition: 0.2s;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.btnAndInputs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: transparent;
+    width: 400px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    box-shadow: 1px 2px 6px 1px rgba(0, 0, 0, 0.5) inset;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.btnCadastrar:hover {
+    background: rgb(131, 248, 120);
+    transition: 0.2s;
+}
+
+.btnCadastrar {
+    background-color: #46c527;
+    margin: 40px;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.btnAndInputs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: transparent;
+    width: 400px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    box-shadow: 1px 2px 6px 1px rgba(0, 0, 0, 0.5) inset;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+input {
+    display: block;
+    width: auto;
+    margin: 10px 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.btnsAndInputs,
+.btnsAndInputs * {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mostraDados{
+    min-width: 30vh;
+    width: auto;
+    border-radius: 20px;
+    box-shadow: 1px 2px 6px 1px  rgba(0, 0, 0, 0.5) inset;
+    text-align: center;
+    font-family: "Brush Script MT", cursive;
+    background-color: transparent;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.btnsAndInputs,
+.btnsAndInputs * {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.btnTrocarSenha:hover {
+    background: rgb(131, 248, 120);
+    transition: 0.2s;
+}
+
+.btnConfirmarTroca {
+    background-color: rgb(255, 155, 155);
+}
+
+.btnConfirmarTroca:hover {
+    background: rgb(255, 0, 0);
+    transition: 0.2s;
+}
+
+.btnCancelar:hover {
+    background: rgb(131, 248, 120);
+    transition: 0.2s;
+}
+
+.btnDeletar:hover{
+    background: rgb(131, 248, 120);
+    transition: 0.2s;
+}
+
+.btnConfirmarDelete {
+    background-color: rgb(255, 155, 155);
+}
+
+.btnConfirmarDelete:hover {
+    background: rgb(255, 0, 0);
+    transition: 0.2s;
+}

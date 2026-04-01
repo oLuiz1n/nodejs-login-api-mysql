@@ -1,5 +1,6 @@
 import FormTrocarSenha from "./FormTrocarSenha";
 import FormDeletarUsuario from "./FormDeletarUsuario";
+import "../style.css";
 
 function Perfil({ usuario }) {
 
@@ -9,8 +10,10 @@ function Perfil({ usuario }) {
 
     return (
     <div>
+        <div className="mostraDados">
         <p><strong>Nome: </strong> {usuario.nome}</p>
         <p><strong>Email: </strong> {usuario.email}</p>
+        </div>
         <FormTrocarSenha />
         <FormDeletarUsuario />
     </div>
