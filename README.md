@@ -1,4 +1,4 @@
-# 🔐 API de Autenticação com Node.js e MySQL (Em evolução)
+# 🔐 API de Autenticação com Node.js e MySQL
 
 API REST desenvolvida para gerenciamento de usuários, com funcionalidades completas de cadastro, login e operações CRUD.
 
