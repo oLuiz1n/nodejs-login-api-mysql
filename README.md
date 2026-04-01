@@ -113,22 +113,22 @@ Este projeto foi criado para prática de desenvolvimento backend, integração c
 
 ## 📷Previews
 
-  # 🖥️Login:
-    ![Tela de login](./assets/Tela_Login.jpg)
+  ### 🖥️Login:
+![Tela de login](./assets/Tela_Login.jpg)
 ---
 
-  # 🖥️Cadastro:
-    ![Tela de login](./assets/Tela_Cadastro.jpg)
+  ### 🖥️Cadastro:
+![Tela de login](./assets/Tela_Cadastro.jpg)
 ---
 
-  # 🖥️Perfil:
-    ![Tela de login](./assets/Tela_Perfil.jpg)
+  ### 🖥️Perfil:
+![Tela de login](./assets/Tela_Perfil.jpg)
 ---
 
-  # 🖥️Perfil + Trocar Senha:
-    ![Tela de login](./assets/Tela_Perfil_+_Trocar_Senha.jpg)
+  ### 🖥️Perfil + Trocar Senha:
+![Tela de login](./assets/Tela_Perfil_+_Trocar_Senha.jpg)
 ---
 
-  # 🖥️Perfil + Excluir Perfil:
-    ![Tela de login](./assets/Tela_Perfil_+_Excluir_Perfil.jpg)
+  ### 🖥️Perfil + Excluir Perfil:
+![Tela de login](./assets/Tela_Perfil_+_Excluir_Perfil.jpg)
 ---
