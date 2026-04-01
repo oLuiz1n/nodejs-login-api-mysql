@@ -95,18 +95,12 @@ node server.js
 * As senhas ainda não estão criptografadas
 * Futuramente será implementado:
 
-  * Estilização
+  * --PROJETO COMPLETADO
 
 ---
 
 ## 🎯 Objetivo
 
 Este projeto foi criado para prática de desenvolvimento backend, integração com banco de dados e construção de APIs REST.
-
----
-
-## 🚀 Próximos passos
-
-* Estilização
 
 ---
