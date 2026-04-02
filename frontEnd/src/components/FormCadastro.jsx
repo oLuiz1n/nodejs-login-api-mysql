@@ -32,6 +32,7 @@ function FormCadastro() {
                 return;
             }
             window.location.href = "/";
+            window.alert("Pefil cadastrado com sucesso");
         } catch (error) {
             console.log("Erro ao cadastrar", error);
             setErro("Erro ao conectar com o servidor");

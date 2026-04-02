@@ -31,6 +31,7 @@ function FormDeletarUsuario() {
 
             localStorage.removeItem("token");
             window.location.href = "/";
+            window.alert("Perfil excluido com sucesso");
             } catch (error) {
             console.log("Erro ao deletar usuario:", error);
             setErro("Erro ao conectar com o servidor");
